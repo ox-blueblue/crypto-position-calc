@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>加密货币仓位计算器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <div>
+                    <h1>📊 仓位计算器</h1>
+                    <p class="subtitle">加密货币仓位管理助手</p>
+                </div>
+                <button id="settingsBtn" class="btn-settings" title="费率设置">⚙️</button>
+            </div>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>输入交易参数</h2>
+                
+                <form id="calcForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="exchange">交易所</label>
+                            <select id="exchange">
+                                <option value="binance">Binance</option>
+                                <option value="okx">OKX</option>
+                                <option value="bitget">Bitget</option>
+                                <option value="bybit">Bybit</option>
+                                <option value="hyperliquid">Hyperliquid</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="symbol">标的 / 币种</label>
+                            <input type="text" id="symbol" placeholder="BTC、ETH、SOL">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="balance">账户总额 (USDT)</label>
+                            <input type="number" id="balance" placeholder="1000" value="1000" step="0.01">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="entryPrice">开仓价格 <span class="required">*</span></label>
+                            <input type="number" id="entryPrice" placeholder="27050" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="stopLoss">止损价格 <span class="required">*</span></label>
+                            <input type="number" id="stopLoss" placeholder="26000" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="takeProfit">止盈价格 <span class="required">*</span></label>
+                            <input type="number" id="takeProfit" placeholder="35000" step="0.01" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="leverage">杠杆倍数</label>
+                            <input type="number" id="leverage" value="1" min="1" max="125">
+                        </div>
+
+                        <div class="form-group form-group-inline">
+                            <label for="riskPercent">止损亏损比例</label>
+                            <div class="input-with-suffix">
+                                <input type="number" id="riskPercent" value="1" step="0.1" min="0.1" max="100">
+                                <span class="suffix">%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-calculate">计算仓位</button>
+                </form>
+            </section>
+
+            <section id="resultSection" class="result-section" style="display: none;">
+                <h2>仓位计算结果</h2>
+                <div id="resultContent"></div>
+            </section>
+
+            <section id="riskSection" class="risk-section" style="display: none;">
+                <h2>⚠️ 风险检查</h2>
+                <ul id="riskList"></ul>
+            </section>
+        </main>
+
+        <footer>
+
+        </footer>
+    </div>
+
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>费率设置</h2>
+                <button id="closeModal" class="btn-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-tip">设置各交易所的手续费率</p>
+                <div class="fee-header">
+                    <span>交易所</span>
+                    <span>现货市价</span>
+                    <span>合约市价</span>
+                </div>
+                <div id="feeSettings"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveFees" class="btn btn-primary">保存</button>
+                <button id="resetFees" class="btn btn-secondary">恢复默认</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
